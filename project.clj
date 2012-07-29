@@ -6,8 +6,10 @@
   :dependencies [[org.clojure/clojure "1.4.0"]]
   :plugins[[lein-cljsbuild "0.2.4"]]
   :cljsbuild {
-    :builds [{
-      :source-path "src"
+    :builds [
+      {:source-path "src"
       :compiler {
         :output-to "main.js"
-        :pretty-print true}}]})
+                 :pretty-print true}}]
+    :repl-listen-port 9000})
+
