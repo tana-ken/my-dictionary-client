@@ -28033,15 +28033,12 @@ goog.require("goog.net.XhrIo");
 goog.require("clojure.browser.repl");
 goog.require("clojure.browser.dom");
 goog.require("clojure.browser.event");
-clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
-google.load("visualization", "1.0", my_dictionary_client.util.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'packages"], {"\ufdd0'packages":cljs.core.PersistentVector.fromArray(["corechart", "table"], true)})));
-my_dictionary_client.core.logger = goog.debug.Logger.getLogger("cljstest.core");
+clojure.browser.repl.connect.call(null, "http://localhost:9000");
+my_dictionary_client.core.logger = goog.debug.Logger.getLogger("my-dictionary-client.core");
 goog.debug.Console.autoInstall();
-my_dictionary_client.core.draw_table = function draw_table(server_response) {
-  return(new google.visualization.Table(clojure.browser.dom.get_element.call(null, "\ufdd0'result"))).draw(new google.visualization.DataTable(server_response))
-};
+google.load("visualization", "1.0", my_dictionary_client.util.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'packages"], {"\ufdd0'packages":cljs.core.PersistentVector.fromArray(["corechart", "table"], true)})));
 my_dictionary_client.core.dictionary_callback = function dictionary_callback(e) {
-  return my_dictionary_client.core.draw_table.call(null, e.target.getResponseJson())
+  return(new google.visualization.Table(clojure.browser.dom.get_element.call(null, "\ufdd0'result"))).draw(new google.visualization.DataTable(e.target.getResponseJson()))
 };
 my_dictionary_client.core.dictionary_request = function dictionary_request(e) {
   return goog.net.XhrIo.send([cljs.core.str("http://localhost:3000/dictionary/"), cljs.core.str(clojure.browser.dom.get_value.call(null, clojure.browser.dom.get_element.call(null, "\ufdd0'query-word")))].join(""), my_dictionary_client.core.dictionary_callback)

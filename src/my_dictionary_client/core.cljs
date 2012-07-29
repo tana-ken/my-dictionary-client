@@ -8,23 +8,19 @@
    [goog.debug.Console :as console]
    [my-dictionary-client.util :as util]))
 
-(repl/connect "http://localhost:9000/repl")
+(repl/connect "http://localhost:9000")
 
-(.load js/google "visualization" "1.0" (util/clj->js {:packages ["corechart" "table"]}))
-    
-(def logger (logger/getLogger "cljstest.core"))
+(def logger (logger/getLogger "my-dictionary-client.core"))
 
 (console/autoInstall)
 
-(defn- draw-table
-  [server-response]
-  (.draw
-   (js/google.visualization.Table. (dom/get-element :result))
-   (js/google.visualization.DataTable. server-response)))
+(.load js/google "visualization" "1.0" (util/clj->js {:packages ["corechart" "table"]}))   
 
 (defn- dictionary-callback
   [e]
-  (draw-table (.getResponseJson e/target)))
+  (.draw
+   (js/google.visualization.Table. (dom/get-element :result))
+   (js/google.visualization.DataTable. (.getResponseJson e/target))))
 
 (defn- dictionary-request
   [e]
