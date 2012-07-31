@@ -497,6 +497,15 @@ goog.base = function(me, opt_methodName, var_args) {
 goog.scope = function(fn) {
   fn.call(goog.global)
 };
+goog.provide("goog.debug.Error");
+goog.debug.Error = function(opt_msg) {
+  this.stack = (new Error).stack || "";
+  if(opt_msg) {
+    this.message = String(opt_msg)
+  }
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.provide("goog.string");
 goog.provide("goog.string.Unicode");
 goog.string.Unicode = {NBSP:"\u00a0"};
@@ -924,15 +933,6 @@ goog.string.toSelectorCaseCache_ = {};
 goog.string.toSelectorCase = function(str) {
   return goog.string.toSelectorCaseCache_[str] || (goog.string.toSelectorCaseCache_[str] = String(str).replace(/([A-Z])/g, "-$1").toLowerCase())
 };
-goog.provide("goog.debug.Error");
-goog.debug.Error = function(opt_msg) {
-  this.stack = (new Error).stack || "";
-  if(opt_msg) {
-    this.message = String(opt_msg)
-  }
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.provide("goog.asserts");
 goog.provide("goog.asserts.AssertionError");
 goog.require("goog.debug.Error");
@@ -28033,11 +28033,12 @@ goog.require("goog.net.XhrIo");
 goog.require("clojure.browser.repl");
 goog.require("clojure.browser.dom");
 goog.require("clojure.browser.event");
-clojure.browser.repl.connect.call(null, "http://localhost:9000");
+clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
 my_dictionary_client.core.logger = goog.debug.Logger.getLogger("my-dictionary-client.core");
 goog.debug.Console.autoInstall();
 google.load("visualization", "1.0", my_dictionary_client.util.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'packages"], {"\ufdd0'packages":cljs.core.PersistentVector.fromArray(["corechart", "table"], true)})));
 my_dictionary_client.core.dictionary_callback = function dictionary_callback(e) {
+  clojure.browser.dom.remove_children.call(null, "\ufdd0'result");
   return(new google.visualization.Table(clojure.browser.dom.get_element.call(null, "\ufdd0'result"))).draw(new google.visualization.DataTable(e.target.getResponseJson()))
 };
 my_dictionary_client.core.dictionary_request = function dictionary_request(e) {
