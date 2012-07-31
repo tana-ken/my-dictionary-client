@@ -8,7 +8,7 @@
    [goog.debug.Console :as console]
    [my-dictionary-client.util :as util]))
 
-(repl/connect "http://localhost:9000")
+(repl/connect "http://localhost:9000/repl")
 
 (def logger (logger/getLogger "my-dictionary-client.core"))
 
@@ -18,6 +18,7 @@
 
 (defn- dictionary-callback
   [e]
+  (dom/remove-children :result)
   (.draw
    (js/google.visualization.Table. (dom/get-element :result))
    (js/google.visualization.DataTable. (.getResponseJson e/target))))
