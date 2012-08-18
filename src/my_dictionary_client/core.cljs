@@ -8,13 +8,7 @@
    [goog.debug.Console :as console]
    [my-dictionary-client.util :as util]))
 
-(repl/connect "http://localhost:9000/repl")
-
 (def logger (logger/getLogger "my-dictionary-client.core"))
-
-(console/autoInstall)
-
-(.load js/google "visualization" "1.0" (util/clj->js {:packages ["corechart" "table"]}))   
 
 (defn- dictionary-callback
   [e]
@@ -26,7 +20,9 @@
 (defn- dictionary-request
   [e]
   (goog.net.XhrIo/send
-  (str "http://localhost:3000/dictionary/" (dom/get-value (dom/get-element :query-word)))
+   (str
+    "http://localhost:3000/dictionary/"
+    (dom/get-value (dom/get-element :query-word)))
    dictionary-callback))
 
 (defn- init
@@ -34,5 +30,7 @@
   (event/listen (dom/get-element :dictionary-button) "click" dictionary-request)
   nil)
 
-
+(repl/connect "http://localhost:9000/repl")
+(console/autoInstall)
+(.load js/google "visualization" "1.0" (util/clj->js {:packages ["corechart" "table"]}))   
 (.setOnLoadCallback js/google init)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
+    <script>
+      $(function(){$("#define").click(function(){$("#main").attr("src", "./dictionary.html");});});
+      $(function(){$("#spelling").click(function(){$("#main").attr("src", "./spelling.html");});});
+    </script>
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">my-dictionary-client</a>
+          <div class="container">
+            <ul class="nav">
+              <li class="active">
+                <a id="Dictionary" href="#">Dictionary</a>
+              </li>
+              <li>
+                <a id="spelling" href="#">Spelling</a>
+              </li>
+            </ul> 
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="span12">
+        <iframe id="main" src="./dictionary.html" scrolling="no" frameborder="0" width="100%" height="100%"/>
+      </div>
+    </div>
+  </body>
+</html>

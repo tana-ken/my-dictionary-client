@@ -28033,10 +28033,7 @@ goog.require("goog.net.XhrIo");
 goog.require("clojure.browser.repl");
 goog.require("clojure.browser.dom");
 goog.require("clojure.browser.event");
-clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
 my_dictionary_client.core.logger = goog.debug.Logger.getLogger("my-dictionary-client.core");
-goog.debug.Console.autoInstall();
-google.load("visualization", "1.0", my_dictionary_client.util.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'packages"], {"\ufdd0'packages":cljs.core.PersistentVector.fromArray(["corechart", "table"], true)})));
 my_dictionary_client.core.dictionary_callback = function dictionary_callback(e) {
   clojure.browser.dom.remove_children.call(null, "\ufdd0'result");
   return(new google.visualization.Table(clojure.browser.dom.get_element.call(null, "\ufdd0'result"))).draw(new google.visualization.DataTable(e.target.getResponseJson()))
@@ -28048,4 +28045,7 @@ my_dictionary_client.core.init = function init() {
   clojure.browser.event.listen.call(null, clojure.browser.dom.get_element.call(null, "\ufdd0'dictionary-button"), "click", my_dictionary_client.core.dictionary_request);
   return null
 };
+clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
+goog.debug.Console.autoInstall();
+google.load("visualization", "1.0", my_dictionary_client.util.clj__GT_js.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'packages"], {"\ufdd0'packages":cljs.core.PersistentVector.fromArray(["corechart", "table"], true)})));
 google.setOnLoadCallback(my_dictionary_client.core.init);
